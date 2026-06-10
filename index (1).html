@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trago Azul — Tequila con Historia Real</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --crema: #f2e8d9;
+      --crema-oscuro: #e8d9c4;
+      --negro: #1a1710;
+      --naranja: #c4621a;
+      --naranja-claro: #d4722a;
+      --azul-marino: #0d1f3c;
+      --azul-medio: #1a3458;
+      --dorado: #c9a84c;
+      --gris: #6b6560;
+      --blanco: #faf7f2;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--crema);
+      color: var(--negro);
+      font-family: 'Raleway', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* NAVBAR */
+    #navbar {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 60px;
+      transition: background 0.4s, border-bottom 0.4s;
+    }
+
+    #navbar.scrolled {
+      background: rgba(242,232,217,0.97);
+      border-bottom: 1px solid rgba(196,98,26,0.15);
+      backdrop-filter: blur(10px);
+    }
+
+    #logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 26px;
+      color: var(--negro);
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      line-height: 1;
+    }
+
+    #logo span {
+      display: block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 8px;
+      letter-spacing: 5px;
+      color: var(--naranja);
+      font-weight: 500;
+      margin-top: 2px;
+      text-transform: uppercase;
+    }
+
+    #nav-links a {
+      color: var(--negro);
+      text-decoration: none;
+      margin-left: 35px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+      opacity: 0.7;
+      transition: opacity 0.3s, color 0.3s;
+    }
+
+    #nav-links a:hover { opacity: 1; color: var(--naranja); }
+
+    /* HERO FULLSCREEN */
+    #hero {
+      height: 100vh;
+      min-height: 700px;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    #hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.pexels.com/photos/13682927/pexels-photo-13682927.jpeg');
+      background-size: cover;
+      background-position: center 20%;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+
+    #hero-bg.loaded { transform: scale(1); }
+
+    #hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(26,23,16,0.1) 0%,
+        rgba(26,23,16,0.2) 30%,
+        rgba(26,23,16,0.75) 70%,
+        rgba(26,23,16,0.95) 100%
+      );
+    }
+
+    #hero-content {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 0 60px 80px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: flex-end;
+      gap: 60px;
+    }
+
+    #hero-left {
+      max-width: 800px;
+    }
+
+    #hero-eyebrow {
+      font-size: 10px;
+      letter-spacing: 7px;
+      text-transform: uppercase;
+      color: var(--naranja);
+      font-weight: 600;
+      margin-bottom: 20px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s ease 0.3s forwards;
+    }
+
+    #hero h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(80px, 12vw, 160px);
+      line-height: 0.88;
+      color: var(--blanco);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeUp 1s ease 0.5s forwards;
+      margin-bottom: 0;
+    }
+
+    #hero h1 span {
+      color: var(--naranja);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    #hero-sub {
+      font-size: 12px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: rgba(250,247,242,0.6);
+      font-weight: 400;
+      margin-top: 20px;
+      margin-bottom: 40px;
+      opacity: 0;
+      animation: fadeUp 1s ease 0.8s forwards;
+    }
+
+    #hero-cta {
+      opacity: 0;
+      animation: fadeUp 1s ease 1s forwards;
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .btn-primary {
+      background-color: var(--naranja);
+      color: var(--blanco);
+      padding: 16px 40px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s, transform 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background-color: var(--naranja-claro); transform: translateY(-2px); }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--blanco);
+      padding: 16px 40px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 500;
+      border: 1px solid rgba(250,247,242,0.4);
+      cursor: pointer;
+      transition: border-color 0.3s, color 0.3s;
+      display: inline-block;
+    }
+
+    .btn-secondary:hover { border-color: var(--naranja); color: var(--naranja); }
+
+    #hero-right-stat {
+      opacity: 0;
+      animation: fadeUp 1.2s ease 1.2s forwards;
+      text-align: right;
+      padding-bottom: 8px;
+    }
+
+    #hero-right-stat .stat-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 72px;
+      color: var(--naranja);
+      line-height: 1;
+      display: block;
+    }
+
+    #hero-right-stat .stat-label {
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(250,247,242,0.5);
+      display: block;
+      margin-top: 4px;
+    }
+
+    #hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      right: 60px;
+      opacity: 0;
+      animation: fadeUp 1s ease 1.6s forwards;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 2;
+    }
+
+    #hero-scroll span {
+      font-size: 8px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(250,247,242,0.5);
+      writing-mode: vertical-rl;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 60px;
+      background: linear-gradient(to bottom, var(--naranja), transparent);
+      animation: scrollPulse 2s ease infinite;
+    }
+
+    /* SECTION UTILS */
+    .section-label {
+      font-size: 10px;
+      letter-spacing: 6px;
+      text-transform: uppercase;
+      color: var(--naranja);
+      margin-bottom: 20px;
+      display: block;
+      font-weight: 600;
+    }
+
+    .linea-naranja {
+      width: 50px;
+      height: 2px;
+      background: var(--naranja);
+      margin: 40px 0;
+    }
+
+    .linea-naranja.center { margin: 40px auto; }
+
+    /* MANIFIESTO */
+    #manifiesto {
+      padding: 120px 60px;
+      background: var(--blanco);
+    }
+
+    #manifiesto-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: center;
+    }
+
+    #manifiesto-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 6vw, 80px);
+      line-height: 0.95;
+      color: var(--negro);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    #manifiesto-left h2 em {
+      color: var(--naranja);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    #manifiesto-right p {
+      font-size: 16px;
+      line-height: 1.95;
+      color: var(--gris);
+      font-weight: 300;
+      margin-bottom: 24px;
+    }
+
+    .manifiesto-highlight {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 18px !important;
+      letter-spacing: 3px;
+      color: var(--negro) !important;
+      text-transform: uppercase;
+      font-weight: 400 !important;
+      line-height: 1.4 !important;
+      border-left: 3px solid var(--naranja);
+      padding-left: 20px;
+      margin-top: 30px !important;
+    }
+
+    /* PILARES */
+    #pilares {
+      padding: 0 60px 120px;
+      background: var(--blanco);
+    }
+
+    #pilares-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: rgba(26,23,16,0.06);
+    }
+
+    .pilar {
+      background: var(--crema);
+      overflow: hidden;
+      transition: background 0.3s;
+    }
+
+    .pilar:hover { background: var(--crema-oscuro); }
+
+    .pilar-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      filter: brightness(0.85) saturate(0.9);
+      transition: filter 0.4s, transform 0.4s;
+      display: block;
+    }
+
+    .pilar:hover .pilar-img {
+      filter: brightness(0.95) saturate(1.1);
+      transform: scale(1.03);
+    }
+
+    .pilar-body {
+      padding: 36px 32px 48px;
+    }
+
+    .pilar-numero {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 56px;
+      color: rgba(196,98,26,0.12);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .pilar-divider {
+      width: 24px;
+      height: 2px;
+      background: var(--naranja);
+      margin-bottom: 16px;
+    }
+
+    .pilar h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 24px;
+      color: var(--negro);
+      margin-bottom: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .pilar p {
+      font-size: 14px;
+      line-height: 1.85;
+      color: var(--gris);
+      font-weight: 300;
+    }
+
+    /* PRODUCTO */
+    #producto {
+      padding: 120px 60px;
+      background: var(--azul-marino);
+    }
+
+    #producto-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    #producto-imagen {
+      position: relative;
+      text-align: center;
+    }
+
+    #producto-imagen img {
+      max-width: 280px;
+      height: 500px;
+      object-fit: contain;
+      filter: drop-shadow(0 30px 50px rgba(0,0,0,0.4));
+    }
+
+    #producto-bg-circle {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      border: 1px solid rgba(196,98,26,0.2);
+    }
+
+    #producto-texto .section-label { color: var(--naranja); }
+
+    #producto-texto h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(56px, 6vw, 86px);
+      line-height: 0.95;
+      color: var(--blanco);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    #producto-texto h2 em {
+      display: block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 12px;
+      letter-spacing: 5px;
+      color: var(--naranja);
+      font-style: normal;
+      font-weight: 500;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+
+    #producto-texto p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: rgba(242,232,217,0.7);
+      font-weight: 300;
+      margin-bottom: 20px;
+      margin-top: 24px;
+    }
+
+    .producto-spec {
+      display: flex;
+      gap: 30px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+
+    .spec-item {
+      text-align: center;
+    }
+
+    .spec-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 36px;
+      color: var(--naranja);
+      line-height: 1;
+      display: block;
+    }
+
+    .spec-label {
+      font-size: 9px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: rgba(242,232,217,0.5);
+      font-weight: 500;
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* CAMPO */
+    #campo {
+      min-height: 70vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    #campo-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://images.pexels.com/photos/10040006/pexels-photo-10040006.jpeg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      filter: brightness(0.3) saturate(0.8);
+    }
+
+    #campo-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(242,232,217,0.1) 0%, rgba(13,31,60,0.6) 100%);
+    }
+
+    #campo-content {
+      position: relative;
+      padding: 100px 60px;
+      max-width: 700px;
+    }
+
+    #campo-content h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 7vw, 90px);
+      line-height: 0.95;
+      color: var(--blanco);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    #campo-content h2 em {
+      color: var(--naranja);
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+    }
+
+    #campo-content p {
+      font-size: 16px;
+      line-height: 1.9;
+      color: rgba(250,247,242,0.8);
+      font-weight: 300;
+      margin-bottom: 44px;
+      max-width: 500px;
+    }
+
+    /* QUOTE NARANJA */
+    #quote-section {
+      padding: 100px 60px;
+      background: var(--naranja);
+      text-align: center;
+    }
+
+    #quote-section blockquote {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(36px, 5vw, 64px);
+      color: var(--blanco);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      line-height: 1.1;
+      max-width: 900px;
+      margin: 0 auto 20px;
+    }
+
+    #quote-section cite {
+      font-size: 11px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: rgba(250,247,242,0.7);
+      font-style: normal;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    /* CONTACTO */
+    #contacto {
+      padding: 120px 60px;
+      background: var(--blanco);
+    }
+
+    #contacto-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 100px;
+      align-items: start;
+    }
+
+    #contacto-left h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(52px, 6vw, 80px);
+      line-height: 0.95;
+      color: var(--negro);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 30px;
+    }
+
+    #contacto-left p {
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--gris);
+      font-weight: 300;
+      margin-bottom: 40px;
+    }
+
+    .contacto-dato {
+      margin-bottom: 20px;
+    }
+
+    .contacto-dato span {
+      font-size: 9px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--naranja);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .contacto-dato p {
+      font-size: 14px;
+      color: var(--negro);
+      font-weight: 400;
+      margin: 0;
+    }
+
+    #contacto-form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    #contacto-form input,
+    #contacto-form textarea {
+      background: var(--crema);
+      border: 1px solid rgba(26,23,16,0.15);
+      color: var(--negro);
+      padding: 18px 22px;
+      font-family: 'Raleway', sans-serif;
+      font-size: 13px;
+      outline: none;
+      transition: border-color 0.3s;
+      width: 100%;
+    }
+
+    #contacto-form input:focus,
+    #contacto-form textarea:focus {
+      border-color: var(--naranja);
+    }
+
+    #contacto-form input::placeholder,
+    #contacto-form textarea::placeholder {
+      color: rgba(26,23,16,0.35);
+      letter-spacing: 2px;
+      font-size: 10px;
+      text-transform: uppercase;
+    }
+
+    #contacto-form textarea { height: 130px; resize: none; }
+
+    #btn-whatsapp {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      color: var(--blanco);
+      padding: 18px;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 600;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s;
+      margin-top: 8px;
+      font-family: 'Raleway', sans-serif;
+    }
+
+    #btn-whatsapp:hover { background: #1ebe5d; }
+
+    /* FOOTER */
+    #footer {
+      background: var(--negro);
+      padding: 60px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    #footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 28px;
+      color: var(--crema);
+      letter-spacing: 5px;
+      text-transform: uppercase;
+    }
+
+    #footer-logo span {
+      display: block;
+      font-family: 'Raleway', sans-serif;
+      font-size: 8px;
+      letter-spacing: 5px;
+      color: var(--naranja);
+      font-weight: 500;
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    #footer-info {
+      font-size: 11px;
+      color: rgba(242,232,217,0.4);
+      text-align: center;
+      line-height: 2.2;
+      letter-spacing: 1px;
+    }
+
+    #footer-legal {
+      font-size: 10px;
+      color: rgba(242,232,217,0.3);
+      letter-spacing: 1px;
+      text-align: right;
+      line-height: 2;
+    }
+
+    /* ANIMACIONES */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.9s ease, transform 0.9s ease;
+    }
+
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      #navbar { padding: 18px 24px; }
+      #nav-links { display: none; }
+      #hero-content { grid-template-columns: 1fr; padding: 0 24px 80px; gap: 20px; }
+      #hero h1 { font-size: clamp(64px, 15vw, 100px); }
+      #hero-right-stat { text-align: left; }
+      #hero-scroll { right: 24px; }
+      #manifiesto { padding: 80px 24px; }
+      #manifiesto-inner { grid-template-columns: 1fr; gap: 40px; }
+      #pilares { padding: 0 24px 80px; }
+      #pilares-grid { grid-template-columns: 1fr; }
+      #producto { padding: 80px 24px; }
+      #producto-inner { grid-template-columns: 1fr; gap: 40px; }
+      #producto-imagen img { height: 320px; }
+      #campo-content { padding: 80px 24px; }
+      #quote-section { padding: 80px 24px; }
+      #contacto { padding: 80px 24px; }
+      #contacto-inner { grid-template-columns: 1fr; gap: 50px; }
+      #footer { padding: 40px 24px; flex-direction: column; text-align: center; }
+      #footer-legal { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <div id="logo">
+      Trago Azul
+      <span>Lealtad al Tequila</span>
+    </div>
+    <div id="nav-links">
+      <a href="#manifiesto">Manifiesto</a>
+      <a href="#producto">Tequila</a>
+      <a href="#campo">El Campo</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+  </nav>
+
+  <!-- HERO FULLSCREEN -->
+  <section id="hero">
+    <div id="hero-bg"></div>
+    <div id="hero-overlay"></div>
+
+    <div id="hero-content">
+      <div id="hero-left">
+        <p id="hero-eyebrow">San Juanito de Escobedo · Jalisco · NOM 1657</p>
+        <h1>
+          ELEGIMOS<br>
+          LO QUE <span>SÍ</span><br>
+          VALE<br>
+          LA PENA.
+        </h1>
+        <p id="hero-sub">Tequila con Historia Real.</p>
+        <div id="hero-cta">
+          <a href="#producto" class="btn-primary">Conocer el Tequila</a>
+          <a href="#manifiesto" class="btn-secondary">Nuestra Historia</a>
+        </div>
+      </div>
+      <div id="hero-right-stat">
+        <span class="stat-num">50+</span>
+        <span class="stat-label">Años en el Campo</span>
+      </div>
+    </div>
+
+    <div id="hero-scroll">
+      <span>Descubre</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MANIFIESTO -->
+  <section id="manifiesto">
+    <div id="manifiesto-inner">
+      <div id="manifiesto-left">
+        <span class="section-label reveal">Manifiesto</span>
+        <h2 class="reveal">
+          EL AGAVE<br>
+          NO PIDE<br>
+          <em>PERMISO.</em>
+        </h2>
+        <div class="linea-naranja reveal"></div>
+      </div>
+      <div id="manifiesto-right">
+        <p class="reveal">
+          Hay tequilas que se construyen para aparentar. Para ser fotografiados, para ocupar una mesa y nunca ser abiertos. Para impresionar sin ser bebidos.
+        </p>
+        <p class="reveal">
+          Trago Azul no es para ellos. Es para el que llega al final del día y merece un trago real. El que respeta el proceso porque sabe lo que costó. El que no necesita una etiqueta cara para saber lo que vale.
+        </p>
+        <p class="reveal manifiesto-highlight">
+          Esto no es un tequila premium.<br>
+          Es un tequila verdadero.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PILARES -->
+  <section id="pilares">
+    <div id="pilares-grid">
+      <div class="pilar reveal">
+        <img class="pilar-img" src="https://images.pexels.com/photos/10040006/pexels-photo-10040006.jpeg" alt="La Tierra">
+        <div class="pilar-body">
+          <div class="pilar-numero">01</div>
+          <div class="pilar-divider"></div>
+          <h3>La Tierra</h3>
+          <p>Suelos volcánicos de los Altos de Jalisco. La misma tierra que ha dado agave azul por generaciones. No hay secreto — hay raíz.</p>
+        </div>
+      </div>
+      <div class="pilar reveal">
+        <img class="pilar-img" src="https://images.pexels.com/photos/10039971/pexels-photo-10039971.jpeg" alt="El Jimador">
+        <div class="pilar-body">
+          <div class="pilar-numero">02</div>
+          <div class="pilar-divider"></div>
+          <h3>El Jimador</h3>
+          <p>Manos que conocen cada planta. El jimador no cosecha agave — lo libera en el momento exacto en que está listo para convertirse en tequila.</p>
+        </div>
+      </div>
+      <div class="pilar reveal">
+        <img class="pilar-img" src="https://images.pexels.com/photos/10040002/pexels-photo-10040002.jpeg" alt="El Proceso">
+        <div class="pilar-body">
+          <div class="pilar-numero">03</div>
+          <div class="pilar-divider"></div>
+          <h3>El Proceso</h3>
+          <p>Sin atajos. Sin aditivos. Solo agave azul, agua, tiempo y el conocimiento de quienes lo hacen con orgullo desde siempre.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTO -->
+  <section id="producto">
+    <div id="producto-inner">
+      <div id="producto-imagen" class="reveal">
+        <div id="producto-bg-circle"></div>
+        <img src="https://images.pexels.com/photos/13682927/pexels-photo-13682927.jpeg" alt="Trago Azul Blanco">
+      </div>
+      <div id="producto-texto">
+        <span class="section-label reveal">La Expresión</span>
+        <h2 class="reveal">
+          <em>Expresión 01</em>
+          TRAGO<br>AZUL<br>BLANCO
+        </h2>
+        <p class="reveal">El agave en su estado más puro. Sin tiempo en barrica — directo del alambique a tu paladar. Fresco, cítrico, honesto. El tequila que no tiene nada que esconder.</p>
+        <p class="reveal">Elaborado con 100% agave azul cosechado en San Juanito de Escobedo, destilado dos veces. Cada botella es el resultado de años de paciencia en el campo.</p>
+        <div class="producto-spec reveal">
+          <div class="spec-item">
+            <span class="spec-num">100%</span>
+            <span class="spec-label">Agave Azul</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-num">40°</span>
+            <span class="spec-label">Alc. Vol.</span>
+          </div>
+          <div class="spec-item">
+            <span class="spec-num">1657</span>
+            <span class="spec-label">NOM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPO -->
+  <section id="campo">
+    <div id="campo-bg"></div>
+    <div id="campo-overlay"></div>
+    <div id="campo-content">
+      <span class="section-label reveal">El Origen</span>
+      <h2 class="reveal">
+        CINCUENTA AÑOS<br>
+        CULTIVANDO<br>
+        <em>LEALTAD.</em>
+      </h2>
+      <p class="reveal">La familia Gaytán lleva más de medio siglo trabajando la tierra de San Juanito de Escobedo. No llegaron al tequila por moda — llegaron porque conocen el agave desde antes de que fuera tendencia.</p>
+      <a href="#contacto" class="btn-primary reveal">Hablar con Nosotros</a>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section id="quote-section">
+    <blockquote class="reveal">
+      "No busca imponerse.<br>Busca permanecer."
+    </blockquote>
+    <cite class="reveal">Trago Azul · Tequila con Historia Real</cite>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div id="contacto-inner">
+      <div id="contacto-left">
+        <span class="section-label reveal">Contacto</span>
+        <h2 class="reveal">¿LISTO PARA<br>EL TEQUILA<br>REAL?</h2>
+        <p class="reveal">Distribuidores, importadores o simplemente quienes quieren saber más sobre Trago Azul.</p>
+        <div class="contacto-dato reveal">
+          <span>Destilería</span>
+          <p>Agaveros Gaba S.A. de C.V.</p>
+        </div>
+        <div class="contacto-dato reveal">
+          <span>Ubicación</span>
+          <p>San Juanito de Escobedo, Jalisco, México</p>
+        </div>
+        <div class="contacto-dato reveal">
+          <span>Registro</span>
+          <p>NOM 1657 · DOT 402</p>
+        </div>
+      </div>
+      <div>
+        <div id="contacto-form">
+          <input type="text" placeholder="Tu nombre">
+          <input type="email" placeholder="Correo electrónico">
+          <input type="text" placeholder="País / Ciudad">
+          <textarea placeholder="¿En qué podemos ayudarte?"></textarea>
+          <button class="btn-primary" style="font-size:11px;letter-spacing:3px;padding:18px;cursor:pointer;font-family:'Raleway',sans-serif;">
+            Enviar Mensaje
+          </button>
+          <a id="btn-whatsapp" href="https://wa.me/5213326158512?text=Hola%2C%20me%20interesa%20saber%20m%C3%A1s%20sobre%20Trago%20Azul%20Tequila" target="_blank">
+            &#x1F4AC; &nbsp; Escribir por WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="footer">
+    <div id="footer-logo">
+      Trago Azul
+      <span>Lealtad al Tequila</span>
+    </div>
+    <div id="footer-info">
+      Agaveros Gaba S.A. de C.V.<br>
+      San Juanito de Escobedo, Jalisco, México<br>
+      NOM 1657 · DOT 402
+    </div>
+    <div id="footer-legal">
+      © 2025 Trago Azul<br>
+      Beber con moderación.<br>
+      Prohibida la venta a menores.
+    </div>
+  </footer>
+
+  <script>
+    // Navbar scroll
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // Hero bg animation
+    window.addEventListener('load', () => {
+      const bg = document.getElementById('hero-bg');
+      if (bg) bg.classList.add('loaded');
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
