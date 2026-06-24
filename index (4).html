@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Trago Azul · Tequila 100% Agave · Jalisco</title>
+<meta name="description" content="Tequila Trago Azul — 100% agave, hecho en México. NOM 1657. A spirit that never settles.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:ital,wght@0,500;0,600;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --crema:#f2e8d9;
+  --azul:#0d1f3c;
+  --azul-2:#13294f;
+  --naranja:#c4621a;
+  --tinta:#0a1729;
+  --nav-h:68px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--crema);
+  color:var(--azul);
+  font-family:'Raleway',system-ui,sans-serif;
+  font-weight:400;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+.eyebrow{
+  font-family:'Raleway',sans-serif;
+  font-weight:600;
+  letter-spacing:.34em;
+  text-transform:uppercase;
+  font-size:.72rem;
+}
+.display{font-family:'Bebas Neue',sans-serif;line-height:.92;letter-spacing:.01em}
+.serif{font-family:'Playfair Display',serif}
+
+/* ---------- NAV ---------- */
+nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:50;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,5vw,64px);
+  background:rgba(13,31,60,0);
+  transition:background .4s ease, box-shadow .4s ease;
+}
+nav.solid{background:rgba(10,23,41,.92);box-shadow:0 1px 0 rgba(242,232,217,.08)}
+.brand{
+  font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.18em;
+  color:var(--crema);display:flex;align-items:center;gap:.5em;
+}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--naranja);display:inline-block;margin-bottom:3px}
+.nav-links{display:flex;gap:clamp(14px,2.4vw,34px)}
+.nav-links a{
+  color:var(--crema);font-size:.74rem;font-weight:500;letter-spacing:.18em;
+  text-transform:uppercase;opacity:.82;transition:opacity .25s, color .25s;
+}
+.nav-links a:hover{opacity:1;color:#fff}
+.nav-toggle{display:none;background:none;border:0;color:var(--crema);font-size:1.5rem;cursor:pointer}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;min-height:100svh;
+  display:flex;align-items:flex-end;
+  padding:0 clamp(20px,5vw,64px) clamp(48px,7vh,90px);
+  color:var(--crema);
+  background:#05101f;
+  overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:0;
+  background-image:url('./assets/hero.jpg');
+  background-size:cover;background-position:center 30%;
+  transform:translate3d(0,var(--py,0px),0) scale(1.14);
+  will-change:transform;
+}
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(5,16,31,.55) 0%,rgba(5,16,31,.1) 30%,rgba(5,16,31,.35) 65%,rgba(5,16,31,.92) 100%),
+    linear-gradient(90deg,rgba(5,16,31,.7) 0%,rgba(5,16,31,0) 55%);
+}
+.hero-inner{position:relative;z-index:2;max-width:880px;width:100%}
+.hero .eyebrow{color:var(--crema);opacity:.85;margin-bottom:22px}
+.hero h1{
+  font-size:clamp(3rem,9vw,7rem);
+  text-transform:uppercase;color:var(--crema);
+  text-shadow:0 2px 30px rgba(0,0,0,.35);
+}
+.hero h1 em{font-style:normal;color:var(--naranja)}
+.hero .lead{
+  margin-top:22px;max-width:46ch;font-size:clamp(1rem,1.6vw,1.18rem);
+  font-weight:300;color:rgba(242,232,217,.92);
+}
+.hero-foot{
+  margin-top:38px;display:flex;align-items:center;gap:clamp(22px,4vw,48px);
+  flex-wrap:wrap;
+}
+.stat{display:flex;align-items:baseline;gap:14px}
+.stat .num{font-family:'Bebas Neue',sans-serif;font-size:clamp(3rem,6vw,4.4rem);line-height:.8;color:var(--crema)}
+.stat .num span{color:var(--naranja)}
+.stat .lbl{
+  font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(242,232,217,.85);max-width:9ch;line-height:1.35;
+}
+.stat-divider{width:1px;height:54px;background:rgba(242,232,217,.28)}
+.btn{
+  display:inline-flex;align-items:center;gap:.7em;
+  background:var(--naranja);color:#fff;
+  padding:15px 30px;border-radius:2px;
+  font-weight:600;letter-spacing:.14em;text-transform:uppercase;font-size:.76rem;
+  transition:transform .25s, background .25s;
+}
+.btn:hover{background:#a8500f;transform:translateY(-2px)}
+.btn.ghost{background:transparent;border:1px solid rgba(242,232,217,.45);color:var(--crema)}
+.btn.ghost:hover{background:rgba(242,232,217,.1);border-color:var(--crema)}
+
+/* ---------- SECTION SHELL ---------- */
+section{position:relative}
+.wrap{max-width:1180px;margin:0 auto;padding:clamp(70px,11vh,140px) clamp(20px,5vw,48px)}
+.sec-label{color:var(--naranja);margin-bottom:18px}
+
+/* ---------- MANIFIESTO ---------- */
+.manifiesto{background:var(--azul);color:var(--crema)}
+.manifiesto .wrap{display:grid;grid-template-columns:1fr;gap:34px;max-width:1000px}
+.manifiesto h2{
+  font-family:'Playfair Display',serif;font-weight:500;
+  font-size:clamp(2rem,5vw,3.6rem);line-height:1.08;letter-spacing:-.01em;
+}
+.manifiesto h2 em{color:var(--naranja);font-style:italic}
+.manifiesto p{font-weight:300;font-size:clamp(1rem,1.5vw,1.18rem);max-width:60ch;color:rgba(242,232,217,.86)}
+
+/* ---------- PROCESO ---------- */
+.proceso{background:var(--crema)}
+.proceso .head{max-width:640px;margin-bottom:clamp(40px,6vh,72px)}
+.proceso h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(1.9rem,4.5vw,3rem);line-height:1.1}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.4vw,30px)}
+.card{background:#fff;border:1px solid rgba(13,31,60,.08)}
+.card .ph{aspect-ratio:4/5;overflow:hidden}
+.card .ph img{width:100%;height:100%;object-fit:cover;transition:transform .8s ease}
+.card:hover .ph img{transform:scale(1.05)}
+.card .body{padding:26px 24px 32px}
+.card .idx{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;letter-spacing:.2em;color:var(--naranja)}
+.card h3{font-family:'Bebas Neue',sans-serif;font-size:1.85rem;letter-spacing:.06em;margin:6px 0 12px;text-transform:uppercase}
+.card p{font-size:.96rem;font-weight:400;color:rgba(13,31,60,.78)}
+
+/* ---------- EXPRESION ---------- */
+.expresion{background:var(--azul);color:var(--crema)}
+.expresion .grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,72px);align-items:center;max-width:1180px;margin:0 auto;padding:clamp(70px,11vh,140px) clamp(20px,5vw,48px)}
+.expresion .shot{position:relative}
+.expresion .shot img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.expresion .shot .tag{position:absolute;left:0;bottom:18px;background:var(--naranja);color:#fff;font-family:'Bebas Neue',sans-serif;letter-spacing:.18em;padding:8px 18px;font-size:1rem}
+.expresion h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.6rem,6vw,4.4rem);letter-spacing:.04em;line-height:.95;text-transform:uppercase}
+.expresion h2 span{color:var(--naranja)}
+.expresion .desc{font-weight:300;margin:20px 0 28px;max-width:46ch;color:rgba(242,232,217,.88)}
+.spec{display:grid;grid-template-columns:repeat(2,auto);gap:18px 40px;margin-bottom:32px}
+.spec .k{font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;color:rgba(242,232,217,.55);margin-bottom:4px}
+.spec .v{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em}
+
+/* ---------- ORIGEN ---------- */
+.origen{background:var(--crema)}
+.origen .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(30px,5vw,72px);align-items:center;max-width:1180px;margin:0 auto;padding:clamp(70px,11vh,140px) clamp(20px,5vw,48px)}
+.origen h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.08;margin-bottom:22px}
+.origen h2 em{font-style:italic;color:var(--naranja)}
+.origen p{font-size:clamp(1rem,1.4vw,1.1rem);color:rgba(13,31,60,.8);max-width:52ch;margin-bottom:18px}
+.origen .who{margin-top:26px;font-family:'Bebas Neue',sans-serif;letter-spacing:.14em;font-size:1.05rem;color:var(--azul)}
+.origen .who span{color:var(--naranja)}
+.origen .shot img{width:100%;aspect-ratio:3/4;object-fit:cover}
+
+/* ---------- CONTACTO ---------- */
+.contacto{background:var(--tinta);color:var(--crema);text-align:center}
+.contacto .wrap{max-width:760px}
+.contacto .eyebrow{color:var(--naranja);margin-bottom:20px}
+.contacto h2{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(2rem,5vw,3.4rem);line-height:1.1;margin-bottom:18px}
+.contacto p{font-weight:300;color:rgba(242,232,217,.82);max-width:48ch;margin:0 auto 34px}
+.contacto .phone{margin-top:26px;font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:rgba(242,232,217,.6)}
+.contacto .phone b{color:var(--crema)}
+
+/* ---------- FOOTER ---------- */
+footer{background:var(--azul);color:rgba(242,232,217,.7);padding:48px clamp(20px,5vw,48px) 60px;text-align:center}
+footer .mark{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:.2em;color:var(--crema);margin-bottom:14px}
+footer .line{font-size:.74rem;letter-spacing:.16em;text-transform:uppercase;margin:6px 0}
+footer .legal{margin-top:26px;font-size:.66rem;letter-spacing:.16em;color:rgba(242,232,217,.4)}
+
+/* ---------- ENTRANCE / SCROLL FX ---------- */
+.js .reveal{opacity:0;transform:translateY(42px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .reveal.r-left{transform:translateX(-56px)}
+.js .reveal.r-right{transform:translateX(56px)}
+.js .reveal.r-scale{transform:scale(.93)}
+.js .reveal.in{opacity:1;transform:none}
+.js .d1{transition-delay:.12s}.js .d2{transition-delay:.24s}.js .d3{transition-delay:.36s}
+/* photos "appear" with a soft zoom as the card enters */
+.card .ph,.expresion .shot,.origen .shot{overflow:hidden}
+.js .shot img,.js .card .ph img{transform:scale(1.12);transition:transform 1.4s cubic-bezier(.2,.7,.2,1)}
+.js .shot.in img,.js .card.in .ph img{transform:scale(1)}
+/* hero: staggered entrance on load */
+.js .hero-inner>*{opacity:0;transform:translateY(34px);transition:opacity .95s cubic-bezier(.2,.7,.2,1),transform .95s cubic-bezier(.2,.7,.2,1)}
+.js .hero.ready .hero-inner>*{opacity:1;transform:none}
+.js .hero.ready .hero-inner>*:nth-child(1){transition-delay:.18s}
+.js .hero.ready .hero-inner>*:nth-child(2){transition-delay:.34s}
+.js .hero.ready .hero-inner>*:nth-child(3){transition-delay:.54s}
+.js .hero.ready .hero-inner>*:nth-child(4){transition-delay:.72s}
+@media (prefers-reduced-motion:reduce){
+  .js .reveal,.js .hero-inner>*{opacity:1!important;transform:none!important;transition:none}
+  .js .shot img,.js .card .ph img{transform:none!important}
+  .hero::before{transform:scale(1.05)!important}
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:860px){
+  .nav-links{
+    position:fixed;inset:var(--nav-h) 0 auto 0;background:rgba(10,23,41,.97);
+    flex-direction:column;align-items:center;gap:0;
+    max-height:0;overflow:hidden;transition:max-height .35s ease;
+  }
+  .nav-links.open{max-height:340px}
+  .nav-links a{padding:18px 0;width:100%;text-align:center;border-top:1px solid rgba(242,232,217,.08)}
+  .nav-toggle{display:block}
+  .cards{grid-template-columns:1fr;max-width:440px;margin:0 auto}
+  .expresion .grid,.origen .grid{grid-template-columns:1fr}
+  .origen .grid{direction:ltr}
+  .origen .shot{order:-1}
+  .spec{grid-template-columns:repeat(2,auto);justify-content:start}
+}
+@media(max-width:430px){
+  .hero-foot{gap:20px}
+  .stat-divider{display:none}
+  .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#top" class="brand">TRAGO<span class="dot"></span>AZUL</a>
+  <button class="nav-toggle" aria-label="Menú" onclick="document.getElementById('navlinks').classList.toggle('open')">☰</button>
+  <div class="nav-links" id="navlinks">
+    <a href="#manifiesto">Manifiesto</a>
+    <a href="#proceso">Proceso</a>
+    <a href="#expresion">Expresión</a>
+    <a href="#origen">Origen</a>
+    <a href="#contacto">Contacto</a>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="hero-inner">
+    <p class="eyebrow">Tequila · 100% Agave · Jalisco</p>
+    <h1 class="display">Elegimos lo que<br><em>sí</em> vale la pena</h1>
+    <p class="lead">Un tequila que nace del campo y no pide permiso. Hecho a mano, sin prisa, con la paciencia que el agave exige.</p>
+    <div class="hero-foot">
+      <div class="stat">
+        <div class="num"><span>50</span>+</div>
+        <div class="lbl">Años en el campo</div>
+      </div>
+      <div class="stat-divider"></div>
+      <a href="#expresion" class="btn">Descubre la expresión</a>
+    </div>
+  </div>
+</header>
+
+<section class="manifiesto" id="manifiesto">
+  <div class="wrap reveal">
+    <p class="eyebrow sec-label">Manifiesto</p>
+    <h2 class="serif">El agave no pide permiso.<br>Tampoco <em>nosotros</em>.</h2>
+    <p>Cada botella es el resultado de décadas de trabajo en la tierra: madrugadas en el campo, manos que conocen la jima y un proceso que no se apura. No hacemos tequila para presumir; lo hacemos para los que entienden que la elegancia no se grita, se transmite. Conocer es no excederse.</p>
+  </div>
+</section>
+
+<section class="proceso" id="proceso">
+  <div class="wrap">
+    <div class="head reveal">
+      <p class="eyebrow sec-label">El proceso</p>
+      <h2 class="serif">De la tierra a la botella, sin atajos.</h2>
+    </div>
+    <div class="cards">
+      <article class="card reveal d1">
+        <div class="ph"><img src="./assets/tierra.jpg" alt="Agave en la tierra roja de Jalisco"></div>
+        <div class="body">
+          <div class="idx">01</div>
+          <h3>La Tierra</h3>
+          <p>Agave azul cultivado en suelo jalisciense, madurado durante años bajo el sol. Todo empieza aquí, en la tierra que le da carácter.</p>
+        </div>
+      </article>
+      <article class="card reveal d2">
+        <div class="ph"><img src="./assets/jimador.jpg" alt="Jimadores trabajando el agave en el campo"></div>
+        <div class="body">
+          <div class="idx">02</div>
+          <h3>El Jimador</h3>
+          <p>Manos expertas que cortan la piña con precisión heredada. El oficio del jimador es el que decide qué llega al horno y qué no.</p>
+        </div>
+      </article>
+      <article class="card reveal d3">
+        <div class="ph"><img src="./assets/proceso.jpg" alt="Piñas de agave cocidas para tequila"></div>
+        <div class="body">
+          <div class="idx">03</div>
+          <h3>El Proceso</h3>
+          <p>Cocción lenta, extracción y destilación cuidadas al detalle. 100% agave, sin prisas ni atajos, hasta lograr un blanco limpio.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="expresion" id="expresion">
+  <div class="grid">
+    <div class="shot reveal r-left">
+      <img src="./assets/expresion.jpg" alt="Botella Trago Azul Blanco junto a la piña de agave">
+      <span class="tag">Blanco</span>
+    </div>
+    <div class="reveal r-right d1">
+      <p class="eyebrow sec-label">La expresión</p>
+      <h2 class="display">Trago Azul <span>Blanco</span></h2>
+      <p class="desc">Un blanco transparente y vivo, con el agave al frente: notas herbales, cítricas y un final limpio. Pensado para beberse con respeto y disfrutarse sin exceso.</p>
+      <div class="spec">
+        <div><div class="k">Categoría</div><div class="v">100% Agave</div></div>
+        <div><div class="k">Alc. Vol.</div><div class="v">40°</div></div>
+        <div><div class="k">Contenido</div><div class="v">750 ml</div></div>
+        <div><div class="k">NOM</div><div class="v">1657</div></div>
+      </div>
+      <a href="#contacto" class="btn">Hacer un pedido</a>
+    </div>
+  </div>
+</section>
+
+<section class="origen" id="origen">
+  <div class="grid">
+    <div class="reveal r-left">
+      <p class="eyebrow sec-label">El origen</p>
+      <h2 class="serif">Cincuenta años <em>cultivando lealtad</em>.</h2>
+      <p>Trago Azul no nació en una oficina. Nació en el campo de Jalisco, en manos de una familia que lleva medio siglo entendiendo el agave: cuándo se corta, cómo se cuida, qué merece llevar el nombre.</p>
+      <p>Por eso cada botella carga algo que no se compra: el tiempo, el oficio y el orgullo de hacer las cosas bien hechas.</p>
+      <div class="who">Familia Gaytán · <span>San Juanito de Escobedo, Jalisco</span></div>
+    </div>
+    <div class="shot reveal r-right d1">
+      <img src="./assets/origen.jpg" alt="Botella Trago Azul edición artesanía huichol">
+    </div>
+  </div>
+</section>
+
+<section class="contacto" id="contacto">
+  <div class="wrap reveal r-scale">
+    <p class="eyebrow">Contacto</p>
+    <h2 class="serif">¿Listo para conocer Trago Azul?</h2>
+    <p>Escríbenos directo por WhatsApp para pedidos, distribución o colaboraciones. Te respondemos personalmente.</p>
+    <a href="https://wa.me/5213326158512" class="btn" target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    <div class="phone">Pedidos · <b>33 1112 2315</b></div>
+  </div>
+</section>
+
+<footer>
+  <div class="mark">TRAGO AZUL</div>
+  <div class="line">A spirit that never settles</div>
+  <div class="line" style="color:var(--naranja)">Conocer es no excederse</div>
+  <div class="legal">NOM 1657 · Hecho en México · Zapopan, Jalisco · Evite el exceso · Venta exclusiva a mayores de edad</div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+var reduce = window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+var nav=document.getElementById('nav');
+var hero=document.querySelector('.hero');
+
+function onScroll(){nav.classList.toggle('solid',window.scrollY>40);}
+onScroll();window.addEventListener('scroll',onScroll,{passive:true});
+
+document.querySelectorAll('#navlinks a').forEach(function(a){
+  a.addEventListener('click',function(){document.getElementById('navlinks').classList.remove('open');});
+});
+
+/* reveal sections as they enter the viewport */
+var io=new IntersectionObserver(function(es){
+  es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});
+},{rootMargin:'0px 0px -10% 0px',threshold:.08});
+var rv=document.querySelectorAll('.reveal');
+rv.forEach(function(el){io.observe(el);});
+/* safety: never leave content hidden */
+setTimeout(function(){rv.forEach(function(el){el.classList.add('in');});},2800);
+
+/* hero staggered entrance on load */
+requestAnimationFrame(function(){requestAnimationFrame(function(){hero.classList.add('ready');});});
+
+/* subtle hero parallax */
+if(!reduce){
+  var ticking=false;
+  function park(){
+    var y=window.scrollY;
+    if(y<window.innerHeight){hero.style.setProperty('--py',(y*0.3).toFixed(1)+'px');}
+    ticking=false;
+  }
+  window.addEventListener('scroll',function(){
+    if(!ticking){requestAnimationFrame(park);ticking=true;}
+  },{passive:true});
+}
+</script>
+</body>
+</html>
